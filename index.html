@@ -1,259 +1,339 @@
-<!DOCTYPE HTML>
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Lukas Meyer</title>
-  <link rel="icon" type="image/x-icon" href="https://github.com/meyerls/For5G/raw/master/resources/img.png">
-  <meta name="author" content="Lukas Meyer">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-  <link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <meta name="author" content="Lukas Meyer" />
+  <link rel="icon" type="image/x-icon" href="https://github.com/meyerls/For5G/raw/master/resources/img.png" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌐</text></svg>">
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    /* --- CSS Reset (lightweight) --- */
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{margin:0;padding:0}
+    img,video{max-width:100%;height:auto;display:block}
+    a{color:inherit}
+
+    /* --- Theme --- */
+    :root{
+    --bg: #ffffff;
+    --fg: #0f172a; /* slate-900 */
+    --muted: #475569; /* slate-600 */
+    --link: #2563eb; /* blue-600 */
+    --card: #f8fafc; /* slate-50 */
+    --border: #e2e8f0; /* slate-200 */
+    --accent: #ffeb3b; /* yellow highlight */
+    --radius: 16px;
+    --featured-card: #f4f1b8; /* soft yellow for featured cards */
+    --shadow: 0 6px 24px rgba(2,6,23,.06);
+    }
+    @media (prefers-color-scheme: dark){
+    :root{
+    --bg: #0b1020;
+    --fg: #e2e8f0;
+    --muted: #94a3b8;
+    --link: #60a5fa;
+    --card: #0f172a;
+    --border: #1f2937;
+    --featured-card: #2a2a00; /* dark yellow tint */
+    --accent: #ffeb3b; /* keep yellow in dark mode */
+    }
+    }
+
+    body{
+      font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: var(--bg);
+      color: var(--fg);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    .container{
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    header{
+      display: grid;
+      grid-template-columns: 1fr 220px;
+      gap: 24px;
+      align-items: center;
+    }
+    @media (max-width: 700px){
+      header{ grid-template-columns: 1fr; text-align:center }
+      .portrait{ margin: 0 auto }
+    }
+
+    h1{
+      font-size: clamp(28px, 4vw, 40px);
+      margin: 0 0 8px;
+      line-height: 1.15;
+    }
+    .subtitle{ color: var(--muted); margin: 2px 0 16px }
+
+    .contact a{ color: var(--link); text-decoration: none; }
+    .contact a:hover{ text-decoration: underline }
+
+
+    .links{ display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+    .links a{
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #a8b5d1, #9333ea);
+      color: #fff;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .links a:hover{
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+    }
+
+    .links img{ width:30px; height:30px; display:inline-block; vertical-align:middle; }
+
+
+    .portrait{ width: 220px; aspect-ratio:1; border-radius: 999px; object-fit: cover; border: 2px solid var(--border); box-shadow: var(--shadow) }
+
+    section{ margin-top: 36px }
+    section h2{ font-size: clamp(20px, 3vw, 28px); margin: 0 0 8px }
+    section p{ margin: 0 0 12px }
+
+    .highlight{ background: var(--featured-card); padding: 2px 6px; border-radius: 6px }
+
+    /* --- Publications Grid --- */
+    .pubs{ display:grid; gap: 16px }
+
+    .pub{
+      display:grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      padding: 16px;
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+    .pub.featured{
+    outline: 3px solid rgba(250, 204, 21, .35);
+    background: var(--featured-card);
+    }
+    .pub figure{ margin: 0 }
+    .pub .meta{ font-size: 14px; color: var(--muted) }
+    .pub .title{ font-weight: 700; font-size: 18px; line-height:1.35 }
+    .pub .badges a{ font-size: 13px; border:1px solid var(--border); padding:4px 8px; border-radius:999px; text-decoration:none; margin-right:8px }
+    .pub .badges a:hover{ border-color: var(--link) }
+
+    @media (max-width: 640px){
+      .pub{ grid-template-columns: 1fr }
+      .pub .media{ order:-1 }
+    }
+
+    footer{ margin: 32px 0 8px; color: var(--muted); font-size: 14px }
+    hr{ border:0; border-top:1px solid var(--border); margin: 24px 0 }
+  </style>
 </head>
-
 <body>
-  <table style="width:100%;max-width:800px;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-    <tr style="padding:0px">
-      <td style="padding:0px">
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-          <tr style="padding:0px">
-            <td style="padding:2.5%;width:63%;vertical-align:middle">
-              <p style="text-align:center">
-                <name>Lukas Meyer</name>
-                <br>
-                lukas.meyer@fau.de
-              </p>
-              <p>I am a third year PhD student at FAU Erlangen-Nürnberg-Fürth, advised by <a href="https://www.like.tf.fau.de/person/prof-dr-ing-joern-thielecke/">Prof. Jörn Thielecke</a> and <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/">Prof. Marc Stamminger</a>.</p>
-              <p>My research  interests are broadly centered around computer vision, remote sensing and machine learning in the field of smart framing and precision agriculture. I am particularly interested in classical 3D reconstructions, neural scene representation and robotics.</p>
-              <p> I obtained my B.Sc. and M.Sc. in Electrical Engineering from FAU Erlangen-Nürnberg-Fürth. Before starting my phD at FAU, I worked several years at <a href="http://like.tf.fau.de">LIKE</a> and <a href="https://www.iis.fraunhofer.de/en.html">Fraunhofer IIS</a> as a Student Researcher. </p>
-              <!--p>
-                At Google I've worked on <a href="https://www.google.com/glass/start/">Glass</a>,  <a href="https://ai.googleblog.com/2014/04/lens-blur-in-new-google-camera-app.html">Lens Blur</a>, <a href="https://ai.googleblog.com/2014/10/hdr-low-light-and-high-dynamic-range.html">HDR+</a>, <a href="https://blog.google/products/google-ar-vr/introducing-next-generation-jump/">Jump</a>, <a href="https://ai.googleblog.com/2017/10/portrait-mode-on-pixel-2-and-pixel-2-xl.html">Portrait Mode</a>, <a href="https://ai.googleblog.com/2020/12/portrait-light-enhancing-portrait.html">Portrait Light</a>, and <a href="https://www.matthewtancik.com/nerf">NeRF</a>. I did my PhD at <a href="http://www.eecs.berkeley.edu/">UC Berkeley</a>, where I was advised by <a href="http://www.cs.berkeley.edu/~malik/">Jitendra Malik</a> and funded by the <a href="http://www.nsfgrfp.org/">NSF GRFP</a>. I've received the <a href="https://www2.eecs.berkeley.edu/Students/Awards/15/">C.V. Ramamoorthy Distinguished Research Award</a> and the <a href="https://www.thecvf.com/?page_id=413#YRA">PAMI Young Researcher Award</a>.
-              </p-->
-              <p style="text-align:center">
-                <!--a href="mailto:lukas.meyer@fau.de">Email</a &nbsp/&nbsp -->
-                <a href="https://www.researchgate.net/profile/Lukas_Meyer8">ResearchGate</a> &nbsp/&nbsp
-                <a href="https://www.linkedin.com/in/lukas-meyer-03020b182">LinkedIn</a> &nbsp/&nbsp
-                <!--a href="https://twitter.com/_meyerls">X</a &nbsp/&nbsp -->
-                <a href="https://github.com/meyerls">Github</a>
-              </p>
-            </td>
-            <td style="padding:2.5%;width:40%;max-width:40%">
-              <a href="images/lukas_meyer_circle.png"><img style="width:100%;max-width:100%" alt="profile photo" src="images/lukas_meyer_circle.png" class="hoverZoomLink"></a>
-            </td>
-          </tr>
-        </tbody></table>
-				<table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-					<tbody>
-						<tr>
-							<td style="padding:20px;width:100%;vertical-align:middle">
-								<heading>Research</heading>
-								<p>
-								For a full publication list, see my <a href="https://scholar.google.com/citations?user=sj3_63cAAAAJ&hl=en">Google Scholar</a> profile. Representative papers are <span class="highlight">highlighted</span>.
-								</p>
-							</td>
-						</tr>
-					</tbody>
-					</table>
-					<table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Lukas Meyer</h1>
+        <p class="subtitle">PhD student · FAU Erlangen–Nürnberg–Fürth</p>
+        <p class="contact"><a href="mailto:lukas.meyer@fau.de">lukas.meyer@fau.de</a></p>
+        <p>
+          I am a third year PhD student at FAU Erlangen-Nürnberg-Fürth, advised by
+          <a href="https://www.like.tf.fau.de/person/prof-dr-ing-joern-thielecke/" target="_blank" rel="noopener">Prof. Jörn Thielecke</a>
+          and
+          <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/" target="_blank" rel="noopener">Prof. Marc Stamminger</a>.
+        </p>
+        <p>
+          My research interests are broadly centered around computer vision, remote sensing and machine learning in the field of smart farming and precision agriculture. I am particularly interested in classical 3D reconstructions, neural scene representation and robotics.
+        </p>
+        <p>
+          I obtained my B.Sc. and M.Sc. in Electrical Engineering from FAU Erlangen-Nürnberg-Fürth. Before starting my PhD at FAU, I worked several years at
+          <a href="http://like.tf.fau.de" target="_blank" rel="noopener">LIKE</a> and
+          <a href="https://www.iis.fraunhofer.de/en.html" target="_blank" rel="noopener">Fraunhofer IIS</a> as a Student Researcher.
+        </p>
+<nav class="links" aria-label="Social links">
+<a href="https://www.researchgate.net/profile/Lukas_Meyer8" target="_blank" rel="noopener"><img src="images/researchgate.png" alt="ResearchGate"> ResearchGate</a>
+<a href="https://www.linkedin.com/in/lukas-meyer-03020b182" target="_blank" rel="noopener"><img src="images/linkedin.svg" alt="LinkedIn" > LinkedIn</a>
+<a href="https://github.com/meyerls" target="_blank" rel="noopener"><img src="images/github.svg" alt="GitHub" > GitHub</a>
+</nav>
+      </div>
+      <img class="portrait" src="images/lukas_meyer_circle.png" width="440" height="440" alt="Portrait of Lukas Meyer" loading="lazy" />
+    </header>
 
-                            <tr bgcolor="white">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/towards_ms_splatting_paper.gif" alt="Boundary_png" style="border-style: none" width="180">
-          </td>
+    <section id="research">
+      <h2>Research</h2>
+      <p>
+        For a full publication list, see my <a href="https://scholar.google.com/citations?user=sj3_63cAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> profile.
+        Representative papers are <span class="highlight">highlighted</span>.
+      </p>
+    </section>
 
-        <td width="75%" valign="middle">
-          <a href="https://meyerls.github.io/towards_multi_spec_splat/">
-            <papertitle>Towards Integrating Multi-Spectral Imaging with Gaussian Splatting</papertitle>
-          </a>
-          <br>
-          <a href="https://j-gruen.github.io">Josef Grün</a><sup>‡</sup>,
-          <strong>Lukas Meyer</strong><sup>‡</sup>,
-          <a href="https://mweiherer.github.io/">Maximilian Weiherer</a>,
-          <a href="https://eggerbernhard.ch/">Bernhard Egger</a>,
-          <a href="https://scholar.google.com/citations?hl=de&user=cx4AaqoAAAAJ">Marc Stamminger</a>,
-          <a href="https://lfranke.github.io/">Linus Franke</a>
-          <br>
-          <em>Vision, Modeling, and Visualization (VMV)</em>, 2025
-          <br>
-          <a href="https://meyerls.github.io/towards_multi_spec_splat/">[website]</a>
-          <a href="https://arxiv.org/abs/2505.19863">[arXiv]</a>
-          <a href="https://github.com/j-gruen/MS-Splatting">[code]</a>
-          <a href="data/2025_vmv.bib">[bibtex]</a>
-        </td>
+    <section class="pubs" aria-label="Publications">
+      <!-- Paper 1 -->
+      <article class="pub">
+        <figure class="media"><img src="images/towards_ms_splatting_paper.gif" alt="Teaser for Multi-Spectral Splatting paper" width="180" loading="lazy"/></figure>
+        <div>
+          <div class="title"><a href="https://meyerls.github.io/towards_multi_spec_splat/" target="_blank" rel="noopener">Towards Integrating Multi-Spectral Imaging with Gaussian Splatting</a></div>
+          <div class="meta">
+            <a href="https://j-gruen.github.io" target="_blank" rel="noopener">Josef Grün</a><sup>‡</sup>, <strong>Lukas Meyer</strong><sup>‡</sup>, <a href="https://mweiherer.github.io/" target="_blank" rel="noopener">Maximilian Weiherer</a>, <a href="https://eggerbernhard.ch/" target="_blank" rel="noopener">Bernhard Egger</a>, <a href="https://scholar.google.com/citations?hl=de&user=cx4AaqoAAAAJ" target="_blank" rel="noopener">Marc Stamminger</a>, <a href="https://lfranke.github.io/" target="_blank" rel="noopener">Linus Franke</a><br />
+            <em>Vision, Modeling, and Visualization (VMV)</em>, 2025
+          </div>
+          <p class="badges">
+            <a href="https://meyerls.github.io/towards_multi_spec_splat/" target="_blank" rel="noopener">website</a>
+            <a href="https://arxiv.org/abs/2505.19863" target="_blank" rel="noopener">arXiv</a>
+            <a href="https://github.com/j-gruen/MS-Splatting" target="_blank" rel="noopener">code</a>
+            <a href="data/2025_vmv.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
 
+      <!-- Paper 2 (featured) -->
+      <article class="pub featured">
+        <figure class="media"><img src="images/teser_fruitnerfpp.gif" alt="Teaser for FruitNeRF++" width="180" loading="lazy"/></figure>
+        <div>
+          <div class="title"><a href="https://meyerls.github.io/fruit_nerfpp" target="_blank" rel="noopener"><i>FruitNeRF++</i>: A Generalized Multi-Fruit Counting Method Utilizing Contrastive Learning and Neural Radiance Fields</a></div>
+          <div class="meta">
+            <strong>Lukas Meyer</strong>, <a href="https://reality.tf.fau.de/staff/t.ardelean.html" target="_blank" rel="noopener">Andrei-Timotei Ardelean</a>, <a href="https://reality.tf.fau.de/weyrich.html" target="_blank" rel="noopener">Tim Weyrich</a>, <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/" target="_blank" rel="noopener">Marc Stamminger</a><br />
+            <em>ArXiv</em>, 2025
+          </div>
+          <p class="badges">
+            <a href="https://meyerls.github.io/fruit_nerfpp" target="_blank" rel="noopener">website</a>
+            <a href="https://arxiv.org/abs/2505.19863" target="_blank" rel="noopener">paper</a>
+            <a href="https://github.com/meyerls/FruitNeRFpp" target="_blank" rel="noopener">code</a>
+            <a href="data/2025_fruitnerfpp.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
 
-
-        <tr bgcolor="#ffffd0">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/teser_fruitnerfpp.gif" alt="Boundary_png" style="border-style: none"  width="180">
-          </td>
-
-          <td width="75%" valign="middle">
-            <a href="https://meyerls.github.io/fruit_nerfpp">
-              <papertitle><i>FruitNeRF++</i>: A Generalized Multi-Fruit Counting Method Utilizing Contrastive Learning and Neural Radiance Fields</papertitle>
-            </a>
-            <br>
-            <strong>Lukas Meyer</strong>,
-            <a href="https://reality.tf.fau.de/staff/t.ardelean.html">Andrei-Timotei Ardelean</a>,
-            <a href="https://reality.tf.fau.de/weyrich.html">Tim Weyrich</a>,
-            <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/">Marc Stamminger</a>
-            <br>
-            <em>Arxiv</em>, 2025
-            <br>
-            <a href="https://meyerls.github.io/fruit_nerfpp">[website]</a>
-            <a href="https://arxiv.org/abs/2505.19863">[paper]</a>
-            <a href="https://github.com/meyerls/FruitNeRFpp">[code]</a>
-            <a href="data/2025_fruitnerfpp.bib">[bibtex]</a>
-          </td>
-        </tr>
-
-
-        <tr bgcolor="#ffffd0">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/fruitnerf_paper.gif" alt="Boundary_png" style="border-style: none" width="180">
-          </td>
-
-          <td width="75%" valign="middle">
-            <a href="https://meyerls.github.io/fruit_nerf">
-              <papertitle><i>FruitNeRF</i>: A Unified Neural Radiance Field based Fruit Counting Framework</papertitle>
-            </a>
-            <br>
-            <strong>Lukas Meyer</strong>,
-            <a href="https://www.linkedin.com/in/andreas-gilson/">Andreas Gilson</a>,
-            <a href="https://www.uni-bamberg.de/en/cogsys/team/schmid-ute/">Ut Schmid</a>,
-            <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/">Marc Stamminger</a>,
-            <br>
+      <!-- Paper 3 (featured) -->
+      <article class="pub featured">
+        <figure class="media"><img src="images/fruitnerf_paper.gif" alt="Teaser for FruitNeRF" width="180" loading="lazy"/></figure>
+        <div>
+          <div class="title"><a href="https://meyerls.github.io/fruit_nerf" target="_blank" rel="noopener"><i>FruitNeRF</i>: A Unified Neural Radiance Field based Fruit Counting Framework</a></div>
+          <div class="meta">
+            <strong>Lukas Meyer</strong>, <a href="https://www.linkedin.com/in/andreas-gilson/" target="_blank" rel="noopener">Andreas Gilson</a>, <a href="https://www.uni-bamberg.de/en/cogsys/team/schmid-ute/" target="_blank" rel="noopener">Ut Schmid</a>, <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/" target="_blank" rel="noopener">Marc Stamminger</a><br />
             <em>International Conference on Intelligent Robots and Systems (IROS)</em>, 2024
-            <br>
-            <a href="https://meyerls.github.io/fruit_nerf">[website]</a>
-            <a href="https://arxiv.org/abs/2408.06190">[paper]</a>
-            <a href="https://github.com/meyerls/FruitNeRF">[code]</a>
-            <a href="data/2024_fruitnerf.bib">[bibtex]</a>
-          </td>
-        </tr>
+          </div>
+          <p class="badges">
+            <a href="https://meyerls.github.io/fruit_nerf" target="_blank" rel="noopener">website</a>
+            <a href="https://arxiv.org/abs/2408.06190" target="_blank" rel="noopener">paper</a>
+            <a href="https://github.com/meyerls/FruitNeRF" target="_blank" rel="noopener">code</a>
+            <a href="data/2024_fruitnerf.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
 
-        <tr bgcolor="#ffffd0">
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <video autoplay loop width="180" >
-              <source src="images/02.webm">
-
-            </video>
-          </td>
-          <td width="75%" valign="middle">
-            <a href="https://meyerls.github.io/pegasus_web/">
-              <papertitle><i>PEGASUS</i>: Physically Enhanced Gaussian Splatting Simulation System for 6DOF Object Pose Dataset Generation</papertitle>
-            </a>
-            <br>
-            <strong>Lukas Meyer</strong>,
-            <a href="https://staff.aist.go.jp/floris.erich/">Floris Erich</a>,
-            <a href="https://dblp.org/pid/40/9988.html">Yusuke Yoshiyasu</a>,
-            <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/">Marc Stamminger</a>,
-            <a href="https://scholar.google.co.jp/citations?user=dYiMngsAAAAJ&hl=ja">Noriaki Ando</a>,
-            <a href="https://researchmap.jp/yukiyasu-domae?lang=en">Yukiyasu Domae</a>,
-            <br>
+      <!-- Paper 4 (featured) -->
+      <article class="pub featured">
+        <figure class="media">
+          <video autoplay muted loop playsinline width="180" style="border-radius:12px" preload="metadata">
+            <source src="images/02.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </figure>
+        <div>
+          <div class="title"><a href="https://meyerls.github.io/pegasus_web/" target="_blank" rel="noopener"><i>PEGASUS</i>: Physically Enhanced Gaussian Splatting Simulation System for 6DOF Object Pose Dataset Generation</a></div>
+          <div class="meta">
+            <strong>Lukas Meyer</strong>, <a href="https://staff.aist.go.jp/floris.erich/" target="_blank" rel="noopener">Floris Erich</a>, <a href="https://dblp.org/pid/40/9988.html" target="_blank" rel="noopener">Yusuke Yoshiyasu</a>, <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/" target="_blank" rel="noopener">Marc Stamminger</a>, <a href="https://scholar.google.co.jp/citations?user=dYiMngsAAAAJ&hl=ja" target="_blank" rel="noopener">Noriaki Ando</a>, <a href="https://researchmap.jp/yukiyasu-domae?lang=en" target="_blank" rel="noopener">Yukiyasu Domae</a><br />
             <em>International Conference on Intelligent Robots and Systems (IROS)</em>, 2024
-            <br>
-            <a href="https://meyerls.github.io/pegasus_web/">[website]</a>
-            <a href="https://arxiv.org/abs/2401.02281">[paper]</a>
-            <a href="https://github.com/meyerls/PEGASUS">[code]</a>
-            <a href="data/2024_pegasus.bib">[bibtex]</a>
-          </td>
-        </tr>
+          </div>
+          <p class="badges">
+            <a href="https://meyerls.github.io/pegasus_web/" target="_blank" rel="noopener">website</a>
+            <a href="https://arxiv.org/abs/2401.02281" target="_blank" rel="noopener">paper</a>
+            <a href="https://github.com/meyerls/PEGASUS" target="_blank" rel="noopener">code</a>
+            <a href="data/2024_pegasus.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
 
-        <tr>
-          <td style="padding:20px;width:25%;vertical-align:middle">
-            <img src="images/s_lbc.gif" alt="Boundary_png" style="border-style: none"  width="180">
-          </td>
-          <td width="75%" valign="middle">
-            <a href="https://meyerls.github.io/CherryPicker/">
-              <papertitle>CherryPicker: Semantic Skeletonization and Topological Reconstruction of Cherry Trees</papertitle>
-            </a>
-            <br>
-            <strong>Lukas Meyer</strong>,
-            <a href="https://www.linkedin.com/in/andreas-gilson/">Andreas Gilson</a>,
-            <a href="https://scholar.google.de/citations?user=8H0LEXMAAAAJ&hl=de">Oliver Scholz</a>,
-            <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/">Marc Stamminger</a>,
-            <br>
+      <!-- Paper 5 -->
+      <article class="pub">
+        <figure class="media"><img src="images/s_lbc.gif" alt="CherryPicker teaser" width="180" loading="lazy"/></figure>
+        <div>
+          <div class="title"><a href="https://meyerls.github.io/CherryPicker/" target="_blank" rel="noopener">CherryPicker: Semantic Skeletonization and Topological Reconstruction of Cherry Trees</a></div>
+          <div class="meta">
+            <strong>Lukas Meyer</strong>, <a href="https://www.linkedin.com/in/andreas-gilson/" target="_blank" rel="noopener">Andreas Gilson</a>, <a href="https://scholar.google.de/citations?user=8H0LEXMAAAAJ&hl=de" target="_blank" rel="noopener">Oliver Scholz</a>, <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/" target="_blank" rel="noopener">Marc Stamminger</a><br />
             <em>IEEE/CVF Conference on Computer Vision and Pattern Recognition Workshops (CVPRW)</em>, 2023
-            <br>
-            <a href="https://meyerls.github.io/CherryPicker/">[website]</a>
-            <a href="https://arxiv.org/abs/2304.04708">[paper]</a>
-            <a href="https://media.githubusercontent.com/media/meyerls/CherryPicker/master/resources/poster_cherry_picker_layout_cvpr.pdf">[poster]</a>
-            <a href="https://github.com/meyerls/pc-skeletor">[code]</a>
-            <a href="data/2023_cvprw_cherry_picker.bib">[bibtex]</a>
-          </td>
-        </tr>
+          </div>
+          <p class="badges">
+            <a href="https://meyerls.github.io/CherryPicker/" target="_blank" rel="noopener">website</a>
+            <a href="https://arxiv.org/abs/2304.04708" target="_blank" rel="noopener">paper</a>
+            <a href="https://media.githubusercontent.com/media/meyerls/CherryPicker/master/resources/poster_cherry_picker_layout_cvpr.pdf" target="_blank" rel="noopener">poster</a>
+            <a href="https://github.com/meyerls/pc-skeletor" target="_blank" rel="noopener">code</a>
+            <a href="data/2023_cvprw_cherry_picker.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
 
-        <tr>
-            <td style="padding:20px;width:25%;vertical-align:middle">
-              <img src="images/GIL-For5g.png" alt="Boundary_png" style="border-style: none"  width="180">
-            </td>
-            <td width="75%" valign="middle">
-              <a href="www.google.com">
-                <papertitle>For5G: Systematic Approach for Creating Digital Twins of Cherry Orchards </papertitle>
-              </a>
-              <br>
-              <strong>Lukas Meyer</strong>,
-              <a href="https://www.linkedin.com/in/andreas-gilson/">Andreas Gilson</a>,
-              <a href="https://www.researchgate.net/profile/Franz-Uhrmann">Franz Uhrmann</a>,
-              <a href="https://de.linkedin.com/in/mareike-weule-908a34196">Mareike Weule</a>,
-              <a href="https://www.linkedin.com/in/fabian-keil-76884b207/">Fabian Keil</a>,
-              <a href="https://www.hswt.de/person/koda/bernhard-haunschild.html">Bernhard Haunschild</a>,
-              <a href="https://ieeexplore.ieee.org/author/37088330772">Joachim Oschek</a>,
-              <a href="https://de.linkedin.com/in/marcosteglich">Marco Steglich</a>,
-              Jonathan Hansen,
-              <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/">Marc Stamminger</a>,
-              <a href="https://scholar.google.de/citations?user=8H0LEXMAAAAJ&hl=de">Oliver Scholz</a>
-              <br>
-              <em>43. GIL-Jahrestagung, Resiliente Agri-Food-Systeme: Herausforderungen und Lösungsansätze</em>, 2023
-              <br>
-              <a href="https://meyerls.github.io/For5G/">[website]</a>
-              <a href="https://gil-net.de/wp-content/uploads/2023/01/GIL_2023_Tagungsband_final_8.2..pdf#page=411">[paper]</a>
-              <a href="https://github.com/meyerls/For5G/raw/master/resources/poster_hq.png">[poster]</a>
-              <a href="data/2023_gil.bib">[bibtex]</a>
-            </td>
-          </tr>
+      <!-- Paper 6 -->
+      <article class="pub">
+        <figure class="media"><img src="images/GIL-For5g.png" alt="For5G project tiles" width="180" loading="lazy"/></figure>
+        <div>
+          <div class="title"><a href="https://meyerls.github.io/For5G/" target="_blank" rel="noopener">For5G: Systematic Approach for Creating Digital Twins of Cherry Orchards</a></div>
+          <div class="meta">
+            <strong>Lukas Meyer</strong>, <a href="https://www.linkedin.com/in/andreas-gilson/" target="_blank" rel="noopener">Andreas Gilson</a>, <a href="https://www.researchgate.net/profile/Franz-Uhrmann" target="_blank" rel="noopener">Franz Uhrmann</a>, <a href="https://de.linkedin.com/in/mareike-weule-908a34196" target="_blank" rel="noopener">Mareike Weule</a>, <a href="https://www.linkedin.com/in/fabian-keil-76884b207/" target="_blank" rel="noopener">Fabian Keil</a>, <a href="https://www.hswt.de/person/koda/bernhard-haunschild.html" target="_blank" rel="noopener">Bernhard Haunschild</a>, <a href="https://ieeexplore.ieee.org/author/37088330772" target="_blank" rel="noopener">Joachim Oschek</a>, <a href="https://de.linkedin.com/in/marcosteglich" target="_blank" rel="noopener">Marco Steglich</a>, Jonathan Hansen, <a href="https://www.lgdv.tf.fau.de/person/marc-stamminger/" target="_blank" rel="noopener">Marc Stamminger</a>, <a href="https://scholar.google.de/citations?user=8H0LEXMAAAAJ&hl=de" target="_blank" rel="noopener">Oliver Scholz</a><br />
+            <em>43. GIL-Jahrestagung, Resiliente Agri-Food-Systeme: Herausforderungen und Lösungsansätze</em>, 2023
+          </div>
+          <p class="badges">
+            <a href="https://meyerls.github.io/For5G/" target="_blank" rel="noopener">website</a>
+            <a href="https://gil-net.de/wp-content/uploads/2023/01/GIL_2023_Tagungsband_final_8.2..pdf#page=411" target="_blank" rel="noopener">paper</a>
+            <a href="https://github.com/meyerls/For5G/raw/master/resources/poster_hq.png" target="_blank" rel="noopener">poster</a>
+            <a href="data/2023_gil.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
 
-          <tr>
-            <td style="padding:40px 20px;width:25%;vertical-align:middle">
-              <img src="images/semoca_platform.png" alt="Boundary_png" style="border-style: none"  width="180">
-            </td>
-            <td width="75%" valign="middle">
-              <a href="https://ieeexplore.ieee.org/document/9964699">
-                <papertitle>Enhancement of Vision-Based 3D Reconstruction Systems Using Radar for Smart Farming</papertitle>
-              </a>
-              <br>
-              <strong>Lukas Meyer</strong>,
-              <a href="https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-elektrotechnik-und-informationstechnik/profil/institute-und-fachgebiete/fachgebiet-elektronische-messtechnik-und-signalverarbeitung/mitglieder/team-radio-modelling-sounding-and-sensing">Jonas Gedschold</a>,
-              <a href="https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-elektrotechnik-und-informationstechnik/profil/institute-und-fachgebiete/fachgebiet-elektronische-messtechnik-und-signalverarbeitung/mitglieder/team-radio-modelling-sounding-and-sensing">Tim Erich Wegner</a>,
-              <a href="https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-elektrotechnik-und-informationstechnik/profil/institute-und-fachgebiete/fachgebiet-elektronische-messtechnik-und-signalverarbeitung/mitglieder/lebenslaeufe/univ-prof-dr-ing-del-galdo-giovanni?Page=4&cHash=ebfc375e8635c560148000ce20e39a6a">Giovanni Del Galdo</a>,
-              <a href="https://www.like.tf.fau.de/person/adam-kalisz-m-sc/">Adam Kalisz</a>
-              <br>
-              <em>IEEE International Workshop on Metrology for Agriculture and Forestry (MetroAgriFor)</em>, 2022
-              <br>
-              <a href="https://ieeexplore.ieee.org/document/9964699">[paper]</a>
-              <a href="data/2022_metro_agri_for.bib">[bibtex]</a>
-            </td>
-          </tr>
-        </tbody></table>
+      <!-- Paper 7 -->
+      <article class="pub">
+        <figure class="media"><img src="images/semoca_platform.png" alt="SEM-OCA platform image" width="180" loading="lazy"/></figure>
+        <div>
+          <div class="title"><a href="https://ieeexplore.ieee.org/document/9964699" target="_blank" rel="noopener">Enhancement of Vision-Based 3D Reconstruction Systems Using Radar for Smart Farming</a></div>
+          <div class="meta">
+            <strong>Lukas Meyer</strong>, <a href="https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-elektrotechnik-und-informationstechnik/profil/institute-und-fachgebiete/fachgebiete/fachgebiet-elektronische-messtechnik-und-signalverarbeitung/mitglieder/team-radio-modelling-sounding-and-sensing" target="_blank" rel="noopener">Jonas Gedschold</a>, <a href="https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-elektrotechnik-und-informationstechnik/profil/institute-und-fachgebiete/fachgebiete/fachgebiet-elektronische-messtechnik-und-signalverarbeitung/mitglieder/team-radio-modelling-sounding-and-sensing" target="_blank" rel="noopener">Tim Erich Wegner</a>, <a href="https://www.tu-ilmenau.de/universitaet/fakultaeten/fakultaet-elektrotechnik-und-informationstechnik/profil/institute-und-fachgebiete/fachgebiete/fachgebiet-elektronische-messtechnik-und-signalverarbeitung/mitglieder/lebenslaeufe/univ-prof-dr-ing-del-galdo-giovanni?Page=4&cHash=ebfc375e8635c560148000ce20e39a6a" target="_blank" rel="noopener">Giovanni Del Galdo</a>, <a href="https://www.like.tf.fau.de/person/adam-kalisz-m-sc/" target="_blank" rel="noopener">Adam Kalisz</a><br />
+            <em>IEEE International Workshop on Metrology for Agriculture and Forestry (MetroAgriFor)</em>, 2022
+          </div>
+          <p class="badges">
+            <a href="https://ieeexplore.ieee.org/document/9964699" target="_blank" rel="noopener">paper</a>
+            <a href="data/2022_metro_agri_for.bib" target="_blank" rel="noopener">bibtex</a>
+          </p>
+        </div>
+      </article>
+    </section>
 
-				
-        <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
+    <footer>
+      <hr />
+      <p style="text-align:right">This template was once created by Jon Barron and can be stolen from <a href="https://github.com/jonbarron/jonbarron_website" target="_blank" rel="noopener">here</a>.</p>
+    </footer>
+  </div>
 
-
-
-          <tr style="padding:10px 20px 10px 20px;width:100%;vertical-align:middle">
-            <td style="padding:0px">
-              <br>
-              <hr>
-              <p style="text-align:right;font-size:small;">
-                This template was once created by Jon Barron an can be stolen from <a href="https://github.com/jonbarron/jonbarron_website">here</a>.
-              </p>
-            </td>
-          </tr>
-        </tbody></table>
-      </td>
-    </tr>
-  </table>
+  <!-- Structured data for better SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Lukas Meyer",
+    "email": "mailto:lukas.meyer@fau.de",
+    "jobTitle": "PhD Student",
+    "affiliation": {
+      "@type": "CollegeOrUniversity",
+      "name": "FAU Erlangen–Nürnberg–Fürth"
+    },
+    "url": "https://meyerls.github.io/",
+    "sameAs": [
+      "https://www.researchgate.net/profile/Lukas_Meyer8",
+      "https://www.linkedin.com/in/lukas-meyer-03020b182",
+      "https://github.com/meyerls"
+    ]
+  }
+  </script>
 </body>
-
 </html>
